@@ -1,10 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { addEmployee } from '../services/EmployeeService'
 
 const Employee = () => {
     const [firstName,setFirstName] = React.useState('')
     const [lastName,setLastName] = React.useState('')   
     const [email,setEmail] = React.useState('')
     const [error,setError] = React.useState('')
+    const navigator = useNavigate();
 
     const firstNameHandler = (e) => {
         setFirstName(e.target.value);
@@ -25,6 +28,12 @@ const Employee = () => {
             return;
         }
         console.log({firstName,lastName,email})
+        addEmployee({firstName,lastName,email}).then((response) => {
+            console.log(response.data);
+            navigator('/employees');
+        }).catch((error) => {
+            console.log(error);
+        })
         setError(''); 
     }
   return (
