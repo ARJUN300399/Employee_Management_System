@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { listOfEmployees } from '../services/EmployeeService'
+import { useNavigate } from 'react-router-dom'
 
 const ListEmployeeComponent = () => {
     const [data,setData] = useState([])
@@ -9,13 +10,19 @@ const ListEmployeeComponent = () => {
                 console.log(error);
             })
     },[])
+    const navigator = useNavigate();
+    const addEmployee = () => {
+        navigator('/add-employee')
+    }
 
   return (
-<div className='container mt-4 mb-4 text-center'>
+<div className='container mt-4 mb-4'>
 <h2 className='text-center'>Employee List</h2>
-    <table className='table table-striped table-bordered'>
+    <button className='btn btn-primary mb-2 'onClick={addEmployee}>Add Employee</button>
+    <table 
+    className='table table-striped table-bordered text-center table-hover'>
         <thead>
-            <tr>
+            <tr> 
                 <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
